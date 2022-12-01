@@ -19,14 +19,14 @@ fun <U, V> List<U>.groupSeparatedBy(
   separator: (U) -> Boolean,
   includeSeparator: Boolean = false,
   transform: (List<U>) -> V
-): List<V> = buildList {
+): Sequence<V> = sequence {
   var curr = mutableListOf<U>()
   this@groupSeparatedBy.forEach {
-    if (separator(it) && curr.isNotEmpty()) add(transform(curr))
+    if (separator(it) && curr.isNotEmpty()) yield(transform(curr))
     if (separator(it)) curr = if (includeSeparator) mutableListOf(it) else mutableListOf()
     else curr += it
   }
-  if (curr.isNotEmpty()) add(transform(curr))
+  if (curr.isNotEmpty()) yield(transform(curr))
 }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> {
