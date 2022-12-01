@@ -12,6 +12,7 @@ internal class AdventTest {
     println("Passed tests for ${expectedOutputs.size} days")
   }
 
-  private val expectedOutputs = mutableListOf<String>(
+  private val expectedOutputs = mutableListOf(
+    "68787\n198041\n"
   )
 }
