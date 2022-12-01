@@ -1,5 +1,6 @@
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import kotlin.system.exitProcess
 
 inline fun <reified T> String.value(): T = when (T::class) {
   String::class -> this as T
@@ -7,6 +8,8 @@ inline fun <reified T> String.value(): T = when (T::class) {
   Int::class -> toIntOrNull() as T
   else -> TODO("Add support to read ${T::class.java.simpleName}")
 }
+
+fun exit(code: Int = 1): Nothing = exitProcess(code)
 
 inline fun <reified T> String.separated(by: String): List<T> = split(by).map { it.value() }
 
@@ -16,15 +19,15 @@ fun <U, V> List<U>.groupSeparatedBy(
   separator: (U) -> Boolean,
   includeSeparator: Boolean = false,
   transform: (List<U>) -> V
-): List<V> = sequence {
+): List<V> = buildList {
   var curr = mutableListOf<U>()
-  forEach {
-    if (separator(it) && curr.isNotEmpty()) yield(transform(curr))
+  this@groupSeparatedBy.forEach {
+    if (separator(it) && curr.isNotEmpty()) add(transform(curr))
     if (separator(it)) curr = if (includeSeparator) mutableListOf(it) else mutableListOf()
     else curr += it
   }
-  if (curr.isNotEmpty()) yield(transform(curr))
-}.toList()
+  if (curr.isNotEmpty()) add(transform(curr))
+}
 
 fun <T> List<List<T>>.transpose(): List<List<T>> {
   val n = map { it.size }.toSet().singleOrNull()
