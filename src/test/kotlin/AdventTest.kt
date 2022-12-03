@@ -15,5 +15,6 @@ internal class AdventTest {
   private val expectedOutputs = mutableListOf(
     "68787\n198041\n",
     "12679\n14470\n",
+    "7990\n2602\n",
   )
 }
