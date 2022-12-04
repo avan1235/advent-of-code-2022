@@ -1,5 +1,4 @@
 object Day3 : AdventDay() {
-  @OptIn(ExperimentalStdlibApi::class)
   override fun solve() {
     val lines = getInputLines() ?: exit()
 
