@@ -17,5 +17,6 @@ internal class AdventTest {
     "12679\n14470\n",
     "7990\n2602\n",
     "532\n854\n",
+    "MQTPGLLDN\nLVZPSTTCZ\n",
   )
 }

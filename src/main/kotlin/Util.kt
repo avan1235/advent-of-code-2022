@@ -18,7 +18,7 @@ fun <T> T.printIt() = also { println(it) }
 fun <U, V> List<U>.groupSeparatedBy(
   separator: (U) -> Boolean,
   includeSeparator: Boolean = false,
-  transform: (List<U>) -> V
+  transform: (List<U>) -> V,
 ): Sequence<V> = sequence {
   var curr = mutableListOf<U>()
   this@groupSeparatedBy.forEach {
@@ -39,7 +39,7 @@ infix fun Int.directedTo(o: Int) = if (this <= o) this..o else this downTo o
 
 class DefaultMap<K, V>(
   private val default: V,
-  private val map: MutableMap<K, V> = HashMap()
+  private val map: MutableMap<K, V> = HashMap(),
 ) : MutableMap<K, V> by map {
   override fun get(key: K): V = map.getOrDefault(key, default).also { map[key] = it }
   operator fun plus(kv: Pair<K, V>): DefaultMap<K, V> = (map + kv).toDefaultMap(default)
@@ -52,13 +52,17 @@ fun <K, V> Map<K, V>.toDefaultMap(default: V) = DefaultMap(default, toMutableMap
 
 class LazyDefaultMap<K, V>(
   private val default: () -> V,
-  private val map: MutableMap<K, V> = HashMap()
+  private val map: MutableMap<K, V> = HashMap(),
 ) : MutableMap<K, V> by map {
   override fun get(key: K): V = map.getOrDefault(key, default()).also { map[key] = it }
   operator fun plus(kv: Pair<K, V>): LazyDefaultMap<K, V> = (map + kv).toLazyDefaultMap(default)
   override fun toString() = map.toString()
   override fun hashCode() = map.hashCode()
   override fun equals(other: Any?) = map == other
+  fun clone(cloneKey: (K) -> K = { it }, cloneValue: (V) -> V = { it }): LazyDefaultMap<K, V> =
+    LazyDefaultMap<K, V>(default, HashMap()).also { result ->
+      forEach { (k, v) -> result[cloneKey(k)] = cloneValue(v) }
+    }
 }
 
 fun <K, V> Map<K, V>.toLazyDefaultMap(default: () -> V) = LazyDefaultMap(default, toMutableMap())
