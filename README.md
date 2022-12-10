@@ -40,5 +40,15 @@ The problems solutions are included in project, but for every of them you can al
 website, where I discuss not only the given problem, but also some cool features of Kotlin or I deep dive into some
 language constructions.
 
-| Problem | Solution | Blog Post | Tags |
-|---------|----------|-----------|------|
+| Problem                                                               | Solution                               | Tags                                                                           |
+|-----------------------------------------------------------------------|----------------------------------------|--------------------------------------------------------------------------------|
+| [Day 1: Calorie Counting](https://adventofcode.com/2022/day/1)        | [Day1.kt](./src/main/kotlin/Day1.kt)   | `sortedDescending`, `groupSeparatedBy`                                         |
+| [Day 2: Rock Paper Scissors](https://adventofcode.com/2022/day/2)     | [Day2.kt](./src/main/kotlin/Day2.kt)   | enum class, infix fun                                                          |
+| [Day 3: Rucksack Reorganization](https://adventofcode.com/2022/day/3) | [Day3.kt](./src/main/kotlin/Day3.kt)   | `intersect`, `windowed`, `..`                                                  |
+| [Day 4: Camp Cleanup](https://adventofcode.com/2022/day/4)            | [Day4.kt](./src/main/kotlin/Day4.kt)   | infix fun                                                                      |
+| [Day 5: Supply Stacks](https://adventofcode.com/2022/day/5)           | [Day5.kt](./src/main/kotlin/Day5.kt)   | typealias, `Stack<T>`, operator fun invoke                                     |
+| [Day 6: Tuning Trouble](https://adventofcode.com/2022/day/6)          | [Day6.kt](./src/main/kotlin/Day6.kt)   | `windowed`, `mapIndexedNotNull`, `asSequence`                                  |
+| [Day 7: No Space Left On Device](https://adventofcode.com/2022/day/7) | [Day7.kt](./src/main/kotlin/Day7.kt)   | `groupSeparatedBy`, filesystem tree, `fold`, graph search                      |
+| [Day 8: Treetop Tree House](https://adventofcode.com/2022/day/8)      | [Day8.kt](./src/main/kotlin/Day8.kt)   | `IntProgression`, `digitToIntOrNull`, `LazyDefaultMap<K, V>`                   |
+| [Day 9: Rope Bridge](https://adventofcode.com/2022/day/9)             | [Day9.kt](./src/main/kotlin/Day9.kt)   | simulation, named for, `downTo`, `until`, operator fun plus, minus, unaryMinus |
+| [Day 10: Cathode-Ray Tube](https://adventofcode.com/2022/day/10)      | [Day10.kt](./src/main/kotlin/Day10.kt) | `repeat`, private set, sealed interface                                        |
