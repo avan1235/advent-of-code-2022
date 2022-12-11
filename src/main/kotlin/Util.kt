@@ -73,3 +73,17 @@ fun catchSystemOut(action: () -> Unit) = ByteArrayOutputStream().also {
   action()
   System.setOut(originalOut)
 }.toString()
+
+inline fun <T> Sequence<T>.productOf(selector: (T) -> Int): Int {
+  var product = 1
+  for (element in this) {
+    product *= selector(element)
+  }
+  return product
+}
+
+fun <K, V> Map<K, V>.copied(
+  copyKey: (K) -> K = { it },
+  copyValue: (V) -> V = { it },
+): Map<K, V> =
+  entries.associate { (k, v) -> copyKey(k) to copyValue(v) }

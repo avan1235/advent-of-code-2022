@@ -52,3 +52,4 @@ language constructions.
 | [Day 8: Treetop Tree House](https://adventofcode.com/2022/day/8)      | [Day8.kt](./src/main/kotlin/Day8.kt)   | `IntProgression`, `digitToIntOrNull`, `LazyDefaultMap<K, V>`                   |
 | [Day 9: Rope Bridge](https://adventofcode.com/2022/day/9)             | [Day9.kt](./src/main/kotlin/Day9.kt)   | simulation, named for, `downTo`, `until`, operator fun plus, minus, unaryMinus |
 | [Day 10: Cathode-Ray Tube](https://adventofcode.com/2022/day/10)      | [Day10.kt](./src/main/kotlin/Day10.kt) | `repeat`, private set, sealed interface                                        |
+| [Day 11: Monkey in the Middle](https://adventofcode.com/2022/day/11)  | [Day11.kt](./src/main/kotlin/Day11.kt) | `repeat`, private set                                                          |
