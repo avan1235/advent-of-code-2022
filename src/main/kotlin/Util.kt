@@ -1,5 +1,8 @@
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import java.math.BigDecimal
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.system.exitProcess
 
 inline fun <reified T> String.value(): T = when (T::class) {
@@ -87,3 +90,43 @@ fun <K, V> Map<K, V>.copied(
   copyValue: (V) -> V = { it },
 ): Map<K, V> =
   entries.associate { (k, v) -> copyKey(k) to copyValue(v) }
+
+data class N(val x: Int, val y: Int)
+data class E(val to: N, val w: Int)
+class WeightedGraph(
+  private val adj: Map<N, List<E>>,
+) {
+
+  fun reversed(): WeightedGraph = WeightedGraph(adj = adj
+    .flatMap { (s, adj) -> adj.map { d -> d.to to E(s, d.w) } }
+    .groupBy(
+      keySelector = { it.first },
+      valueTransform = { it.second }
+    )
+  )
+
+  fun shortestPathsLengths(source: N): DefaultMap<N, BigDecimal> {
+    data class QN(val n: N, val dist: BigDecimal)
+
+    val dist = DefaultMap<N, BigDecimal>(BigDecimal.ZERO)
+    val queue = PriorityQueue(compareBy(QN::dist))
+    adj.keys.forEach { v ->
+      if (v != source) dist[v] = BigDecimal.valueOf(Long.MAX_VALUE)
+      queue += QN(v, dist[v])
+    }
+
+    while (queue.isNotEmpty()) {
+      val u = queue.remove()
+      adj[u.n]?.forEach neigh@{ edge ->
+        val alt = dist[u.n] + edge.w.toBigDecimal()
+        if (alt >= dist[edge.to]) return@neigh
+        dist[edge.to] = alt
+        queue += QN(edge.to, alt)
+      }
+    }
+    return dist
+  }
+
+  fun shortestPathLength(source: N, dest: N): BigDecimal =
+    shortestPathsLengths(source)[dest]
+}
