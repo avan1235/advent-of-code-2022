@@ -54,3 +54,4 @@ language constructions.
 | [Day 10: Cathode-Ray Tube](https://adventofcode.com/2022/day/10)        | [Day10.kt](./src/main/kotlin/Day10.kt) | `repeat`, private set, sealed interface                                        |
 | [Day 11: Monkey in the Middle](https://adventofcode.com/2022/day/11)    | [Day11.kt](./src/main/kotlin/Day11.kt) | `repeat`, private set, sealed interface, modulo op                             |
 | [Day 12: Hill Climbing Algorithm](https://adventofcode.com/2022/day/12) | [Day12.kt](./src/main/kotlin/Day12.kt) | `getOrNull`, dijkstra, graph search                                            |
+| [Day 13: Distress Signal](https://adventofcode.com/2022/day/13)         | [Day13.kt](./src/main/kotlin/Day13.kt) | `Comparator<String>`, recursion                                                |
