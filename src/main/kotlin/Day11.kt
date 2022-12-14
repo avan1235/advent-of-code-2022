@@ -15,7 +15,7 @@ object Day11 : AdventDay() {
 }
 
 private fun Map<Int, Monkey>.simulate(ids: List<Int>, rounds: Int, extraOp: (Long) -> Long): Long =
-  copied(copyValue = { it.copy() }).let { monkeys ->
+  copy(copyValue = { it.copy() }).let { monkeys ->
     repeat(rounds) {
       ids.forEach { id ->
         monkeys[id]!!.processItems(monkeys, extraOp)

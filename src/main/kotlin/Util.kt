@@ -49,6 +49,10 @@ class DefaultMap<K, V>(
   override fun toString() = map.toString()
   override fun hashCode() = map.hashCode()
   override fun equals(other: Any?) = map == other
+  fun copy(copyKey: (K) -> K = { it }, copyValue: (V) -> V = { it }): DefaultMap<K, V> =
+    DefaultMap<K, V>(default, HashMap()).also { result ->
+      forEach { (k, v) -> result[copyKey(k)] = copyValue(v) }
+    }
 }
 
 fun <K, V> Map<K, V>.toDefaultMap(default: V) = DefaultMap(default, toMutableMap())
@@ -62,9 +66,9 @@ class LazyDefaultMap<K, V>(
   override fun toString() = map.toString()
   override fun hashCode() = map.hashCode()
   override fun equals(other: Any?) = map == other
-  fun clone(cloneKey: (K) -> K = { it }, cloneValue: (V) -> V = { it }): LazyDefaultMap<K, V> =
+  fun copy(copyKey: (K) -> K = { it }, copyValue: (V) -> V = { it }): LazyDefaultMap<K, V> =
     LazyDefaultMap<K, V>(default, HashMap()).also { result ->
-      forEach { (k, v) -> result[cloneKey(k)] = cloneValue(v) }
+      forEach { (k, v) -> result[copyKey(k)] = copyValue(v) }
     }
 }
 
@@ -85,7 +89,7 @@ inline fun <T> Sequence<T>.productOf(selector: (T) -> Int): Int {
   return product
 }
 
-fun <K, V> Map<K, V>.copied(
+fun <K, V> Map<K, V>.copy(
   copyKey: (K) -> K = { it },
   copyValue: (V) -> V = { it },
 ): Map<K, V> =

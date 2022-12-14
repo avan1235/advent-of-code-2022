@@ -10,7 +10,7 @@ object Day5 : AdventDay() {
 
     val positions = first.toPositions()
     val cranes1 = first.toCranes(positions)
-    val cranes2 = cranes1.clone(cloneValue = { Stack<String>().apply { addAll(it) } })
+    val cranes2 = cranes1.copy(copyValue = { Stack<String>().apply { addAll(it) } })
 
     moves.forEach { it.execute(cranes1) }
     cranes1.description.printIt()
