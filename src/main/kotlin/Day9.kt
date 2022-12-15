@@ -67,14 +67,6 @@ private fun getNewTailPositionDirection(newHead: V2, oldHead: V2, oldTail: V2, h
   }
 }
 
-private typealias V2 = Pair<Int, Int>
-
-private operator fun V2.plus(v: V2): V2 = Pair(first + v.first, second + v.second)
-private operator fun V2.minus(v: V2): V2 = Pair(first - v.first, second - v.second)
-private val V2.length: Int get() = first * first + second * second
-private val V2.abs: V2 get() = V2(abs(first), abs(second))
-private val V2.normalized: V2 get() = V2(first.sign * min(1, abs(first)), second.sign * min(1, abs(second)))
-
 private sealed interface RopeMove {
   val count: Int
 

@@ -3,6 +3,9 @@ import java.io.PrintStream
 import java.math.BigDecimal
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.math.sign
 import kotlin.system.exitProcess
 
 inline fun <reified T> String.value(): T = when (T::class) {
@@ -134,3 +137,12 @@ class WeightedGraph(
   fun shortestPathLength(source: N, dest: N): BigDecimal =
     shortestPathsLengths(source)[dest]
 }
+
+
+typealias V2 = Pair<Int, Int>
+
+operator fun V2.plus(v: V2): V2 = Pair(first + v.first, second + v.second)
+operator fun V2.minus(v: V2): V2 = Pair(first - v.first, second - v.second)
+val V2.length: Int get() = first * first + second * second
+val V2.abs: V2 get() = V2(abs(first), abs(second))
+val V2.normalized: V2 get() = V2(first.sign * min(1, abs(first)), second.sign * min(1, abs(second)))

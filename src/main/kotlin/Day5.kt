@@ -8,7 +8,7 @@ object Day5 : AdventDay() {
 
     val moves = last.map { it.toCraneMove() }
 
-    val positions = first.toPositions()
+    val positions = first.toSensor()
     val cranes1 = first.toCranes(positions)
     val cranes2 = cranes1.copy(copyValue = { Stack<String>().apply { addAll(it) } })
 
@@ -26,7 +26,7 @@ private typealias Positions = Map<Int, Int>
 
 private typealias Data = List<CharArray>
 
-private fun Data.toPositions(): Positions = last()
+private fun Data.toSensor(): Positions = last()
   .mapIndexed { idx, c -> if (c.isDigit()) Pair(idx, "$c".toInt()) else null }
   .filterNotNull()
   .toMap()
