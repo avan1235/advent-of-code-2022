@@ -19,23 +19,30 @@ private val Char.elevation: Char
     else -> this
   }
 
-private data class HillMap(val graph: WeightedGraph, val s: N, val e: N, val atA: List<N>)
+private data class HillMapNode(val x: Int, val y: Int)
+
+private data class HillMap(
+  val graph: WeightedGraph<HillMapNode>,
+  val s: HillMapNode,
+  val e: HillMapNode,
+  val atA: List<HillMapNode>,
+)
 
 private fun List<String>.toHillMap(): HillMap {
-  var s: N? = null
-  var e: N? = null
-  val atA = mutableListOf<N>()
+  var s: HillMapNode? = null
+  var e: HillMapNode? = null
+  val atA = mutableListOf<HillMapNode>()
 
   val graph = flatMapIndexed { y, line ->
     line.mapIndexedNotNull { x, c ->
-      if (c.elevation == 'a') atA += N(x, y)
+      if (c.elevation == 'a') atA += HillMapNode(x, y)
       when (c) {
-        'S' -> s = N(x, y)
-        'E' -> e = N(x, y)
+        'S' -> s = HillMapNode(x, y)
+        'E' -> e = HillMapNode(x, y)
         else -> Unit
       }
-      N(x, y) to listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1).mapNotNull { (cx, cy) ->
-        val d = N(x + cx, y + cy)
+      HillMapNode(x, y) to listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1).mapNotNull { (cx, cy) ->
+        val d = HillMapNode(x + cx, y + cy)
         val cAdj = getOrNull(d.y)?.getOrNull(d.x) ?: return@mapNotNull null
         if (cAdj.elevation.code - c.elevation.code <= 1) E(d, w = 1) else null
       }

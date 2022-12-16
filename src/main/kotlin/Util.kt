@@ -98,13 +98,12 @@ fun <K, V> Map<K, V>.copy(
 ): Map<K, V> =
   entries.associate { (k, v) -> copyKey(k) to copyValue(v) }
 
-data class N(val x: Int, val y: Int)
-data class E(val to: N, val w: Int)
-class WeightedGraph(
-  private val adj: Map<N, List<E>>,
+data class E<N>(val to: N, val w: Int)
+class WeightedGraph<N>(
+  private val adj: Map<N, List<E<N>>>,
 ) {
 
-  fun reversed(): WeightedGraph = WeightedGraph(adj = adj
+  fun reversed(): WeightedGraph<N> = WeightedGraph(adj = adj
     .flatMap { (s, adj) -> adj.map { d -> d.to to E(s, d.w) } }
     .groupBy(
       keySelector = { it.first },
@@ -116,7 +115,7 @@ class WeightedGraph(
     data class QN(val n: N, val dist: BigDecimal)
 
     val dist = DefaultMap<N, BigDecimal>(BigDecimal.ZERO)
-    val queue = PriorityQueue(compareBy(QN::dist))
+    val queue = PriorityQueue<QN>(compareBy(selector = { it.dist }))
     adj.keys.forEach { v ->
       if (v != source) dist[v] = BigDecimal.valueOf(Long.MAX_VALUE)
       queue += QN(v, dist[v])
